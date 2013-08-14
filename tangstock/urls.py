@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf.urls import  url, include
 
 urlpatterns = [
-    #path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     #qf版本控制添加到分发前
     url(r'^api/(?P<version>[v1|v2]+)/', include('api.urls')),
 ]

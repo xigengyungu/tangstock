@@ -76,10 +76,19 @@ from django.utils.safestring import mark_safe
 
 from django.contrib.auth.models import AbstractUser
 
-class UserInfo(models.Model):
+class UserInfo(AbstractUser):
     username = models.CharField("用户名", max_length=64, unique=True)
     password = models.CharField("密码", max_length=20)
-
+    uid = models.CharField(max_length=64, unique=True)  # 与第3方交互用户信息时，用这个uid,以避免泄露敏感用户信息
+    name = models.CharField(max_length=32, default="", verbose_name="真实姓名")
+    head_img = models.CharField(max_length=256, default='/static/frontend/head_portrait/logo@2x.png',verbose_name="个人头像")
+    gender_choices = ((0, '保密'), (1, '男'), (2, '女'))
+    gender = models.SmallIntegerField(choices=gender_choices, default=0, verbose_name="性别")
+    is_active = models.BooleanField(default=True, verbose_name="账户状态")
+    is_staff = models.BooleanField(verbose_name='staff status', default=False, help_text='决定着用户是否可登录管理后台')
+    role_choices = ((0, '学员'), (1, '导师'), (2, '讲师'), (3, '管理员'), (4, '班主任'), (5, '线下班主任'))
+    role = models.SmallIntegerField(choices=role_choices, default=0, verbose_name="角色")
+    beli=models.IntegerField(default=100)
     def __str__(self):
         return "%s" % (self.username)
 

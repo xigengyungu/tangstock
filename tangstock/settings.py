@@ -137,3 +137,5 @@ REST_FRAMEWORK = {
     'VERSION_PARM':'version',  #版本传递参数名称
     'DEFAULT_VERSION':'v1' ,  #默认版本
 }
+
+AUTH_USER_MODEL="api.UserInfo"
