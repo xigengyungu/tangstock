@@ -6,5 +6,5 @@ from api.views import course
 
 urlpatterns = [
     #path('admin/', admin.site.urls),
-    url(r'^(?P<version>[v1|v2]+)/course/$', course.CourseView.as_view()),
+    url(r'^course/$', course.CourseView.as_view()),
 ]

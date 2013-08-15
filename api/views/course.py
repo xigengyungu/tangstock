@@ -1,4 +1,5 @@
 __author__ = 'gujingyun'
+#coding=utf-8
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import HttpResponse
@@ -6,7 +7,7 @@ from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.versioning import QueryParameterVersioning, URLPathVersioning
 
 class CourseView(APIView):
-    #指定返回类型为Json
+    #鎸囧畾杩斿洖绫诲瀷涓篔son
    # renderer_classes = [JSONRenderer,]
    # versioning_class = URLPathVersioning
 
@@ -16,5 +17,13 @@ class CourseView(APIView):
     def get(self, request, *args, **kwargs):
         #self.dispatch
         print (request.version)
-        return Response('...')
+        ret = {
+            'code':1000,
+            'data':[
+                {'id':1,'title':'Python鍏ㄦ爤'},
+                {'id':1,'title':'Linux杩愮淮'},
+                {'id':1,'title':'閲戣瀺鍒嗘瀽'}
+            ]
+        }
+        return Response(ret)
         #return HttpResponse('...')
