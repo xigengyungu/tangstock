@@ -2,11 +2,11 @@
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import  url, include
-from api.views import course,login
+from api.views import course,login,account
 
 urlpatterns = [
     #path('admin/', admin.site.urls),
-    #方式一
+    #锟斤拷式一
     #url(r'^course/$', course.CourseView.as_view()),
     #url(r'^course/(?P<pk>\d+)/$', course.CourseView.as_view()),
 
@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^course/(?P<pk>\d+)/$', course.CourseView.as_view({'get':'retrieve'})),
 
     url(r'^auth/$', login.LoginView.as_view()),
+    #url(r'^auth/$', account.AuthView.as_view()),
 ]

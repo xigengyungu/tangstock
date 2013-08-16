@@ -8,7 +8,7 @@ from api import models
 class TangAuth(BaseAuthentication):
     def authenticate(self, request):
         token = request.query_params.get('token')
-        obj = models.Token.objects.filter(key=token)
+        obj = models.Token.objects.filter(key=token).first()
         if not obj:
             raise AuthenticationFailed({'code':1001, 'error':'认证失败'})
         return (obj.user.user, obj)

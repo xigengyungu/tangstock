@@ -73,12 +73,18 @@ class CourseChapter(models.Model):
 ######################################## 用户表 ########################################
 
 from django.utils.safestring import mark_safe
-
 from django.contrib.auth.models import AbstractUser
 
 class UserInfo(AbstractUser):
     username = models.CharField("用户名", max_length=64, unique=True)
-    password = models.CharField("密码", max_length=20)
+    email = models.EmailField(
+        verbose_name='email address',
+        max_length=255,
+        unique=True,
+        blank=True,
+        null=True
+    )
+    password = models.CharField('password', max_length=128, help_text=mark_safe('''<a class='btn-link' href='password'>重置密码</a>'''))
     uid = models.CharField(max_length=64, unique=True)  # 与第3方交互用户信息时，用这个uid,以避免泄露敏感用户信息
     name = models.CharField(max_length=32, default="", verbose_name="真实姓名")
     head_img = models.CharField(max_length=256, default='/static/frontend/head_portrait/logo@2x.png',verbose_name="个人头像")
