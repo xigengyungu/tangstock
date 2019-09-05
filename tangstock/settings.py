@@ -128,5 +128,9 @@ STATIC_URL = '/static/'
 
 #配置常渲染器
 REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES' :  ['rest_framework.renderers.JSONRenderer', 'rest_framework.renderers.BrowsableAPIRenderer']
+    'DEFAULT_RENDERER_CLASSES' :  ['rest_framework.renderers.JSONRenderer', 'rest_framework.renderers.BrowsableAPIRenderer'],
+    'DEFAULT_VERSIONING_CLASS':'rest_framework.versioning.URLPathVersioning',
+    'ALLOWED_VERSIONS':['v1', 'v2'] ,  #默认允许版本号
+    'VERSION_PARM':'version',  #版本传递参数名称
+    'DEFAULT_VERSION':'v1' ,  #默认版本
 }
