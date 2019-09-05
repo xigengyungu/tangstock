@@ -125,3 +125,8 @@ STATIC_URL = '/static/'
 
 #1.7/1.8/1.9ƒ£∞Â¬∑æ∂≈‰÷√
 #TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'))
+
+#≈‰÷√≥£‰÷»æ∆˜
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES' :  ['rest_framework.renderers.JSONRenderer', 'rest_framework.renderers.BrowsableAPIRenderer']
+}
