@@ -6,7 +6,7 @@ from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 
 class CourseView(APIView):
     #指定返回类型为Json
-    renderer_classes = [JSONRenderer,BrowsableAPIRenderer,]
+    renderer_classes = [JSONRenderer,]
 
     def get(self, request, *args, **kwargs):
         return Response('...')
