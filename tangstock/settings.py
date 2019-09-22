@@ -1,3 +1,4 @@
+# _*_ coding: utf-8 _*_
 """
 Django settings for tangstock project.
 
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'api.apps.ApiConfig',
     'rest_framework',
 ]
 
@@ -53,7 +55,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'tangstock.urls'
 
-#1.10ÒÔºó£¬ ÅäÖÃ¡®DIRS¡¯
+#1.10ä»¥åï¼Œ é…ç½®â€˜DIRSâ€™
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backen'
@@ -124,14 +126,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-#1.7/1.8/1.9Ä£°åÂ·¾¶ÅäÖÃ
+#1.7/1.8/1.9æ¨¡æ¿è·¯å¾„é…ç½®
 #TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'))
 
-#ÅäÖÃ³£äÖÈ¾Æ÷
+#é…ç½®å¸¸æ¸²æŸ“å™¨
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES' :  ['rest_framework.renderers.JSONRenderer', 'rest_framework.renderers.BrowsableAPIRenderer'],
     'DEFAULT_VERSIONING_CLASS':'rest_framework.versioning.URLPathVersioning',
-    'ALLOWED_VERSIONS':['v1', 'v2'] ,  #Ä¬ÈÏÔÊĞí°æ±¾ºÅ
-    'VERSION_PARM':'version',  #°æ±¾´«µİ²ÎÊıÃû³Æ
-    'DEFAULT_VERSION':'v1' ,  #Ä¬ÈÏ°æ±¾
+    'ALLOWED_VERSIONS':['v1', 'v2'] ,  #é»˜è®¤å…è®¸ç‰ˆæœ¬å·
+    'VERSION_PARM':'version',  #ç‰ˆæœ¬ä¼ é€’å‚æ•°åç§°
+    'DEFAULT_VERSION':'v1' ,  #é»˜è®¤ç‰ˆæœ¬
 }

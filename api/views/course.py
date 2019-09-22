@@ -1,10 +1,17 @@
 __author__ = 'gujingyun'
-#coding=utf-8
+# _*_ coding: utf-8 _*_
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import HttpResponse
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.versioning import QueryParameterVersioning, URLPathVersioning
+from api import models
+from rest_framework import serializers
+
+class CoursesSerializer(serializers.ModelSerializer) :
+    class Meta:
+        model = models.Course
+        fields = "__all__"
 
 class CourseView(APIView):
     #指定返回类型为Json
@@ -17,13 +24,25 @@ class CourseView(APIView):
     def get(self, request, *args, **kwargs):
         #self.dispatch
         print (request.version)
+        '''
         ret = {
             'code':1000,
             'data':[
                 {'id':1,'title':'Python全栈'},
-                {'id':1,'title':'Linux运维'},
-                {'id':1,'title':'金融分析'}
+                {'id':2,'title':'Linux运维'},
+                {'id':3,'title':'金融分析'}
             ]
         }
+        '''
+        ret = {'code':1000, 'data':None}
+        try:
+            queryset =  models.Course.objects.all()
+            print(queryset)
+            ser = CoursesSerializer(instance=queryset, many=True)
+            print (ser.data)
+        except :
+
+
+
         return Response(ret)
         #return HttpResponse('...')
