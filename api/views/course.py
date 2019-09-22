@@ -36,9 +36,14 @@ class CourseView(APIView):
         '''
         ret = {'code':1000, 'data':None}
         try:
-            queryset =  models.Course.objects.all()
-            print(queryset)
-            ser = CoursesSerializer(instance=queryset, many=True)
+            pk = kwargs.get('pk')
+            if pk:
+                obj = models.Course.objects.filter(id=pk).first()
+                ser = CoursesSerializer(instance=obj, many = False)
+            else :
+                queryset =  models.Course.objects.all()
+                print(queryset)
+                ser = CoursesSerializer(instance=queryset, many=True)
             print ('data====',ser.data)
             ret['data'] = ser.data
         except Exception as e:
