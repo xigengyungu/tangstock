@@ -39,10 +39,12 @@ class CourseView(APIView):
             queryset =  models.Course.objects.all()
             print(queryset)
             ser = CoursesSerializer(instance=queryset, many=True)
-            print (ser.data)
-        except :
-
-
+            print ('data====',ser.data)
+            ret['data'] = ser.data
+        except Exception as e:
+            print(e)
+            ret['code'] = 1001
+            ret['error'] = '获取数据无效'
 
         return Response(ret)
         #return HttpResponse('...')
