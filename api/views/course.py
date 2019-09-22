@@ -8,18 +8,18 @@ from rest_framework.versioning import QueryParameterVersioning, URLPathVersionin
 from api import models
 from rest_framework import serializers
 
+
 class CoursesSerializer(serializers.ModelSerializer) :
     class Meta:
         model = models.Course
         fields = "__all__"
 
-class CourseView(APIView):
+class CourseView1(APIView):
     #指定返回类型为Json
    # renderer_classes = [JSONRenderer,]
    # versioning_class = URLPathVersioning
 
     #QueryParameterVersioning  http://127.0.0.1:8000/api/course/?version=v1
-
 
     def get(self, request, *args, **kwargs):
         #self.dispatch
@@ -53,3 +53,40 @@ class CourseView(APIView):
 
         return Response(ret)
         #return HttpResponse('...')
+
+'''
+View
+ApiView
+
+'''
+from rest_framework.generics import GenericAPIView
+from rest_framework.viewsets import GenericViewSet, ViewSetMixin
+class CourseView(ViewSetMixin, APIView):
+
+    def retrieve(self, request, *args, **kwargs):
+        ret = {'code':1000, 'data':None}
+        try:
+            pk = kwargs.get('pk')
+            queryset =  models.Course.objects.filter(id=pk).first()
+            ser = CoursesSerializer(instance=queryset, many=False)
+            print ('retrieve——data====',ser.data)
+            ret['data'] = ser.data
+        except Exception as e:
+            print(e)
+            ret['code'] = 1001
+            ret['error'] = '获取数据无效'
+
+        return Response(ret)
+    def list(self, request, *args, **kwargs):
+        ret = {'code':1000, 'data':None}
+        try:
+            queryset =  models.Course.objects.all()
+            ser = CoursesSerializer(instance=queryset, many=True)
+            print ('list——data====',ser.data)
+            ret['data'] = ser.data
+        except Exception as e:
+            print(e)
+            ret['code'] = 1001
+            ret['error'] = '获取数据无效'
+
+        return Response(ret)
