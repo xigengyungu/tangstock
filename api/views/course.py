@@ -23,14 +23,20 @@ class CourseDetailSerializer(serializers.ModelSerializer):
 
     #m2m
     recommends = serializers.SerializerMethodField()
+    chapers = serializers.SerializerMethodField()
+
     class Meta:
         model = models.CourseDetail
-        fields = ["course", "title", "img", "level", "course_slogan", "why_study", "recommends"]
+        fields = ["course", "title", "img", "level", "course_slogan", "why_study", "recommends", "chapers" ]
+
         #depth = 2
 
     def get_recommends(self, obj):
         queryset = obj.recommend_courses.all()
         return [{'id':row.id, 'title':row.name} for row in queryset]
+    def get_chapers(self, obj):
+        queryset=obj.course.coursechapters.all()
+        return [{'id':row.id, 'name':row.name} for row in queryset]
 
 class CourseView1(APIView):
     #指定返回类型为Json

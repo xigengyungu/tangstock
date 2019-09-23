@@ -55,3 +55,18 @@ class CourseDetail(models.Model):
 
     def __str__(self):
         return "%s" % self.course
+
+class CourseChapter(models.Model):
+    """课程章节"""
+    course = models.ForeignKey("Course", related_name='coursechapters',on_delete=models.CASCADE)
+    chapter = models.SmallIntegerField(verbose_name="第几章", default=1)
+    name = models.CharField(max_length=128)
+    summary = models.TextField(verbose_name="章节介绍", blank=True, null=True)
+    is_create = models.BooleanField(verbose_name="是否创建题库进度", default=True)
+    pub_date = models.DateField(verbose_name="发布日期", auto_now_add=True)
+
+    class Meta:
+        unique_together = ("course", 'chapter')
+
+    def __str__(self):
+        return "%s:(第%s章)%s" % (self.course, self.chapter, self.name)
