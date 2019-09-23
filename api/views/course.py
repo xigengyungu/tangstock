@@ -10,9 +10,16 @@ from rest_framework import serializers
 
 
 class CoursesSerializer(serializers.ModelSerializer) :
+    level = serializers.CharField(source='get_level_display')
     class Meta:
         model = models.Course
+        fields = ["id", "name", "course_img", "level"]
+
+class CourseDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.CourseDetail
         fields = "__all__"
+        depth = 2
 
 class CourseView1(APIView):
     #指定返回类型为Json
@@ -67,8 +74,8 @@ class CourseView(ViewSetMixin, APIView):
         ret = {'code':1000, 'data':None}
         try:
             pk = kwargs.get('pk')
-            queryset =  models.Course.objects.filter(id=pk).first()
-            ser = CoursesSerializer(instance=queryset, many=False)
+            queryset =  models.CourseDetail.objects.filter(course_id=pk).first()
+            ser = CourseDetailSerializer(instance=queryset, many=False)
             print ('retrieve——data====',ser.data)
             ret['data'] = ser.data
         except Exception as e:
