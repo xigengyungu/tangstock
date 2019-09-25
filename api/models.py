@@ -70,3 +70,35 @@ class CourseChapter(models.Model):
 
     def __str__(self):
         return "%s:(第%s章)%s" % (self.course, self.chapter, self.name)
+######################################## 用户表 ########################################
+
+from django.utils.safestring import mark_safe
+
+from django.contrib.auth.models import AbstractUser
+
+class UserInfo(models.Model):
+    username = models.CharField("用户名", max_length=64, unique=True)
+    password = models.CharField("密码", max_length=20)
+
+    def __str__(self):
+        return "%s" % (self.username)
+
+
+class Token(models.Model):
+    """
+    The default authorization token model.
+    """
+    key = models.CharField(max_length=40)
+    user = models.OneToOneField(
+        UserInfo, related_name='auth_token',
+        on_delete=models.CASCADE, verbose_name="关联用户"
+    )
+    created = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)
+
+
+    def __str__(self):
+        return self.key
+
+
+##############################################################
+

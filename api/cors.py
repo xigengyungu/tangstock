@@ -20,9 +20,13 @@ class CORSMiddleware  (MiddlewareMixin):
     def process_response(self, request, response):
         #添加相应头
         #允许跨域
+        print('CORSMiddleware ...')
         response['Access-Control-Allow-Origin']="*"
         #允许携带Content-Type
-        response['Access-Control-Allow-Headers']="Content-Type"
-        #允许方法
-        response['Access-Control-Allow-Methods']="DELETE,PUT"
+        if request.method == "OPIONS":
+            response['Access-Control-Allow-Headers']="Content-Type"
+            #允许方法
+            response['Access-Control-Allow-Methods']="DELETE,PUT,POST"
+
+
         return response
