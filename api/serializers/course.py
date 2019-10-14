@@ -35,3 +35,4 @@ class CourseDetailSerializer(serializers.ModelSerializer):
     def get_chapers(self, obj):
         queryset=obj.course.coursechapters.all()
         return [{'id':row.id, 'name':row.name} for row in queryset]
+

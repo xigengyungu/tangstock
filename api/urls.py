@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^course/$', course.CourseView.as_view({'get':'list'})),
     url(r'^course/(?P<pk>\d+)/$', course.CourseView.as_view({'get':'retrieve'})),
 
+    url(r'^micro/$', course.MicroView.as_view()),
     url(r'^auth/$', login.LoginView.as_view()),
     #url(r'^auth/$', account.AuthView.as_view()),
 ]

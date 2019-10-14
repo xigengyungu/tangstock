@@ -85,3 +85,13 @@ class CourseView(ViewSetMixin, APIView):
             ret['error'] = '获取数据无效'
 
         return Response(ret)
+
+class MicroView(APIView):
+    def get(self, request, *args, **kwargs):
+        token = request.query_params.get('token')
+        print(token)
+        obj = models.Token.objects.filter(key=token)
+        print(obj)
+        if not obj:
+            return Response('认证失败')
+        return Response('Micro...')
