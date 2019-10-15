@@ -8,6 +8,7 @@ from rest_framework.versioning import QueryParameterVersioning, URLPathVersionin
 from api import models
 from rest_framework import serializers
 from api.serializers.course import CoursesSerializer,CourseDetailSerializer
+from api.auth import auth
 
 class CourseView1(APIView):
     #指定返回类型为Json
@@ -87,11 +88,9 @@ class CourseView(ViewSetMixin, APIView):
         return Response(ret)
 
 class MicroView(APIView):
+    authentication_classes = [auth.TangAuth,]
     def get(self, request, *args, **kwargs):
-        token = request.query_params.get('token')
-        print(token)
-        obj = models.Token.objects.filter(key=token)
-        print(obj)
-        if not obj:
-            return Response('认证失败')
-        return Response('Micro...')
+        print(request.user)
+        print(request.auth)
+        ret = {'code':1000, 'msg':'Micro ...'}
+        return Response(ret)
